@@ -1,0 +1,2 @@
+# Magical-Mirai
+python mirai
