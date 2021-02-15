@@ -22,3 +22,28 @@ class Method:
             msg = json.loads(msg)
             print(msg)
         return msg
+
+        
+class Application(Method):
+    def sendFriendMessage(self, target):  # 发送消息给好友
+        url = self.baseUrl + '/sendFriendMessage'
+        key = Method.verify(self)
+        data = {{
+            "sessionKey": key,
+            "target": target,
+            "messageChain": [
+                {"type": "Plain", "text": "hello\n"},
+                {"type": "Plain", "text": "world"},
+                {"type": "Image", "url": "https://i0.hdslb.com/bfs/album/67fc4e6b417d9c68ef98ba71d5e79505bbad97a1.png"}
+            ]
+        }}
+        html = requests.post(url=url, json=data)
+        msg = html.json()
+        messageId = html.json()
+        if msg == 'success':
+            print("发送成功")
+            return messageId
+        else:
+            print('发送失败')
+
+
