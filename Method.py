@@ -46,4 +46,28 @@ class Application(Method):
         else:
             print('发送失败')
 
+    def sendGroupMessage(self, target):
+        """
+
+        :param target: 群号
+        :return:
+        """
+        key = self.verify()
+        url = self.baseUrl + '/sendGroupMessage'
+        data = {
+            "sessionKey": key,
+            "target": target,
+            "messageChain": [
+                {"type": "Plain", "text": "hello\n"},
+                {"type": "Plain", "text": "world"},
+                {"type": "Image", "url": "https://i0.hdslb.com/bfs/album/67fc4e6b417d9c68ef98ba71d5e79505bbad97a1.png"}
+            ]
+        }
+        html = requests.post(url=url, json=data)
+        msg = html.json()
+        if msg['msg'] == 'success':
+            print("发送成功")
+            return msg['messageId']
+        else:
+            print('发送失败')
 
