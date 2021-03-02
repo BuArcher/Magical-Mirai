@@ -23,7 +23,7 @@ class Method:
             print(msg)
         return msg
 
-        
+
 class Application(Method):
     def sendFriendMessage(self, target):  # 发送消息给好友
         url = self.baseUrl + '/sendFriendMessage'
