@@ -71,3 +71,30 @@ class Application(Method):
         else:
             print('发送失败')
 
+
+class Getlist(Method):  # 获取列表
+    def friendList(self):  # 好友列表
+        midurl = self.baseUrl + '/friendList?'
+        key = self.verify()
+        data = 'sessionKey=' + key
+        url = midurl + data
+        midmsg = requests.get(url=url)
+        p = midmsg.json()
+        i = 0
+        while i < len(p):
+            json = p[i]
+            print(json['nickname'])
+            i += 1
+
+    def groupList(self):
+        midurl = self.baseUrl + '/groupList?'
+        key = self.verify()
+        data = 'sessionKey=' + key
+        url = midurl + data
+        midMsg = requests.get(url=url)
+        p = midMsg.json()
+        i = 0
+        while i < len(p):
+            json = p[i]
+            print(json['name'])
+            i += 1
