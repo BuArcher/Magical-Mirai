@@ -98,3 +98,37 @@ class Getlist(Method):  # 获取列表
             json = p[i]
             print(json['name'])
             i += 1
+
+    def memberList(self, target: int, state: None, printing: bool):
+        """
+
+        :param target: 群号
+        :param state: 用途
+        :param printing:妈的字符型是否打印
+        :return: 处理完的json
+        """
+        target = str(target)
+        state = str(state)
+        printing = bool(printing)
+        midUrl = self.baseUrl + '/memberList?'
+        sessionKey = 'sessionKey=' + self.verify() + '&'
+        urlTarget = 'target=' + target
+        url = midUrl + sessionKey + urlTarget
+        midMsg = requests.get(url=url)
+        p = midMsg.json()
+        if printing:
+            i = 0
+            while i < len(p):
+                json = p[i]  # 转换成json处理
+                try:
+                    if state == 'id':
+                        print(json['id'])
+                    elif state == 'memberName':
+                        print(json['memberName'])
+                    elif state == 'permission':
+                        print(json['permission'])
+                    i += 1
+                except:
+                    print('导出失败')
+        else:
+            return p
