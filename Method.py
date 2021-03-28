@@ -132,3 +132,22 @@ class Getlist(Method):  # 获取列表
                     print('导出失败')
         else:
             return p
+
+
+class Judge(Getlist):
+    def judge(self, target: int):
+        target = int(target)
+        table = Getlist.memberList(self=self, target=target, state='12', printing=False)  # 判断权限
+        i = 0
+        while i < len(table):
+            msg = table[i]
+            while msg['id'] == self.qqNumber:
+                finalNum = i
+                break
+            i += 1
+        material = table[finalNum]
+        if material['permission'] != 'MEMBER':
+            return True
+        else:
+            print('本账号权限不足')
+            return False
